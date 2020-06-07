@@ -5,6 +5,7 @@ const DeploymentController = require('../controllers/DeploymentController');
 const ServiceController = require('../controllers/ServiceController');
 const ClusterController = require('../controllers/ClusterController');
 const nodeRouter = require('../routes/nodeRouter');
+const podRouter = require('../routes/podRouter');
 
 // api/local/nodes/ (get) returns all nodes
 // api/local/nodes/name (get) returns node with name
@@ -12,11 +13,9 @@ const nodeRouter = require('../routes/nodeRouter');
 // api/local/nodes/changeCpu (put) to change cpu of node
 const localRouter = express.Router();
 
-localRouter.get('/pods', PodController.getPods, (req, res, next) => {
-  return res.status(200).json(res.locals.pods);
-});
+localRouter.use('/pods', podRouter);
 
-localRouter.get('/nodes', nodeRouter);
+localRouter.use('/nodes', nodeRouter);
 
 localRouter.get(
   '/deployments',
