@@ -4,7 +4,6 @@ const NodeController = require('../controllers/NodeController');
 const router = express.Router();
 
 router.get('/', NodeController.getNodes, (req, res, next) => {
-  console.log('hi');
   return res.status(200).json(res.locals.nodes);
 });
 

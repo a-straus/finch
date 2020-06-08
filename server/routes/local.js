@@ -19,13 +19,6 @@ localRouter.use('/pods', podRouter);
 localRouter.use('/nodes', nodeRouter);
 localRouter.use('/deployments', deploymentRouter);
 localRouter.use('/services', serviceRouter);
-localRouter.get(
-  '/services',
-  ServiceController.getServices,
-  (req, res, next) => {
-    return res.status(200).json(res.locals.services);
-  }
-);
 
 localRouter.get(
   '/clusters',

@@ -2,14 +2,24 @@ const kubernetes = require('../../k8s-client/config');
 
 module.exports = {
   getPods: async (req, res, next) => {
+    const { name } = req.query;
+    let response;
     try {
-      const response = await kubernetes.api.v1.namespaces('default').pods.get();
+      if (name) {
+        response = await kubernetes.api.v1
+          .namespaces('default')
+          .pods(name)
+          .get();
+        res.locals.pods = response.body;
+      } else {
+        response = await kubernetes.api.v1.namespaces('default').pods.get();
+        res.locals.pods = response.body.items;
+      }
       /* pods is an array of pod objects containing
     metadata:(name, namespace, creationTimeStamp
     spec: (volumes, containers, nodeName!, )
     status: (phase [like running etc], conditions, hostIp, podIP, podIPs, startTime, containerStatuses)
      */
-      res.locals.pods = response.body.items;
       console.log(res.locals.pods);
       next();
     } catch (err) {
