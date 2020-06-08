@@ -16,9 +16,9 @@ module.exports = {
         res.locals.pods = response.body.items;
       }
       /* pods is an array of pod objects containing
-    metadata:(name, namespace, creationTimeStamp
-    spec: (volumes, containers, nodeName!, )
-    status: (phase [like running etc], conditions, hostIp, podIP, podIPs, startTime, containerStatuses)
+      metadata:(name, namespace, creationTimeStamp
+      spec: (volumes, containers, nodeName!, )
+      status: (phase [like running etc], conditions, hostIp, podIP, podIPs, startTime, containerStatuses)
      */
       console.log(res.locals.pods);
       next();
